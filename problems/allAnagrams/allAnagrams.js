@@ -23,36 +23,41 @@ const changeOrder = (arr) => {
 
 // console.log(changeOrder([1, 2, 3, ]));
 
+const switchAndPush = (arr) => {
+  const len = arr.length;
+  let copyArr = [...arr];
+  const temp = [];
+  
+  for (let i = 0; i < len; i++) {
+    copyArr = changeOrder(copyArr);
+    
+    temp.push(copyArr);
+  }
+  
+  return temp;
+};
+
+// console.log(switchAndPush(['a', 'b', 'c']))
+
 const test = (arr) => {
-  const copyArr = [...arr];
   const final = [];
   
   for (let i = 0; i < arr.length; i++) {
-    const char = arr[i];
     const copyArr = [...arr];
-    const newArr = [copyArr.splice(i)];
-    let temp = [];
+    const char = copyArr.splice(i, 1)[0];
     
-    for (let j = 0; j < copyArr.length; j++) {
-      const nextChar = copyArr[j];
+    const test = switchAndPush(copyArr);
+    
+    const newTest = test.map((item) => {
+      item.push(char);
       
-      newArr.push(nextChar);
-    }
+      return item;
+    });    
     
-    temp = changeOrder(copyArr);
-    final.push(newArr);
+    final.push(newTest);
   }
   
   return final;
 };
 
-console.log(test(['a', 'b', 'c']));
-
-// const allAnagrams = (str = '') => {
-//   // Your code here.
-//   const splitStr = str.split('');
-//   
-//   console.log(splitStr);
-// };
-// 
-// allAnagrams('abc');
+console.log(test(['a', 'b', 'c', 'd']));
